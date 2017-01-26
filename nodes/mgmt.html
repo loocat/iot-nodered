@@ -1,0 +1,295 @@
+<!--<script type="text/x-red" data-template-name="iot-dev-in">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <br/>
+    <div class="form-row">
+        <label for="node-input-orgId"><i class="icon-tasks"></i> Org ID</label>
+        <input type="text" id="node-input-orgId">
+    </div>
+
+	<div class="form-row">
+        <label for="node-input-deviceType"><i class="icon-tasks"></i> DeviceType</label>
+        <input type="text" id="node-input-deviceType" placeholder="iotsample-nodered">
+    </div>
+
+	<div class="form-row">
+        <label for="node-input-deviceId"><i class="icon-tasks"></i> DeviceID</label>
+        <input type="text" id="node-input-deviceId">
+    </div>
+
+	<div class="form-row">
+        <label for="node-input-authToken"><i class="icon-tasks"></i> AuthToken</label>
+        <input type="password" id="node-input-authToken">
+    </div>
+
+	<div class="form-row">
+        <label for="node-input-command"><i class="icon-tasks"></i> Command</label>
+        <input type="text" id="node-input-command" placeholder="Command the device listens to">
+    </div>
+
+	<div class="form-row">
+        <label for="node-input-format"><i class="icon-tasks"></i> Format</label>
+        <input type="text" id="node-input-format" placeholder="Format of the payload">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="iot-dev-in">
+   <p> Works only with <i>Registered Mode</i>. When you onboard your device to the Internet of Things Cloud, you will get the following</p>
+	<pre>org=yourOrganizationCode
+type=sample-device-id
+id=sample-device-id
+auth-method=token
+auth-token=yourAuthToken
+		</pre>
+
+	<p> <b>Org ID</b> The organization ID. </p>
+	<p> <b>DeviceID</b> Unique ID of device. If empty, will be filled with MAC address</p>
+	<p> <b>AuthToken</b> Authetication Token </p>
+	<p> <b>Command</b> The command that device listens to. For any command, input <b>+</b></p>
+	<p> <b>Format</b> The format of the payload. Default is <b>json</b>. For any format, input <b>+</b></p>
+	
+</script>
+
+<script type="text/x-red" data-template-name="iot-dev-out">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <br/>
+    <div class="form-row">
+		<label for="node-input-connectmode"><i class="icon-tasks"></i> Connection</label>
+		<select id="node-input-connectmode" style="margin-right:3px;">
+            <option value="qsmode">Quickstart Mode</option>
+            <option value="regismode">Registered Mode</option>
+        </select>
+        
+    </div>
+	<div class="form-row">
+        <label for="node-input-orgId"><i class="icon-tasks"></i> Org ID</label>
+        <input type="text" id="node-input-orgId">
+    </div>
+
+	<div class="form-row">
+        <label for="node-input-deviceType"><i class="icon-tasks"></i> DeviceType</label>
+        <input type="text" id="node-input-deviceType">
+    </div>
+
+	<div class="form-row">
+        <label for="node-input-deviceId"><i class="icon-tasks"></i> DeviceID</label>
+        <input type="text" id="node-input-deviceId">
+    </div>
+
+	<div class="form-row">
+        <label for="node-input-authToken"><i class="icon-tasks"></i> AuthToken</label>
+        <input type="password" id="node-input-authToken" placeholder="Required only for Registered mode">
+    </div>
+
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="iot-dev-out">
+	<p><b>Connection</b> There are two modes of operation in Internet of Things Cloud. </p>
+	<p> 1. Quickstart Mode: To try out a device to the open Quickstart service. </p> 
+	<p> 2. Registered Mode - When you onboard your device to the Internet of Things Cloud, you will get the following</p>
+	<pre>org=yourOrganizationCode
+type=sample-device-id
+id=sample-device-id
+auth-method=token
+auth-token=yourAuthToken
+		</pre>
+
+	<p> <b>Org ID</b> The organization ID. For quickstart, the value must be <i>Quickstart</i> </p>
+	<p> <b>DeviceID</b> Unique ID of device. If empty, will be filled with MAC address</p>
+	<p> <b>AuthToken</b> Required only for <i>Registered Mode</i> </p>
+</script>-->
+
+<script type='text/x-red' data-template-name='iot-client'>
+  <div class="form-row">
+    <label for="node-config-input-name"><i class="icon-tag"></i> Name</label>
+    <input type="text" id="node-config-input-name" placeholder="Name">
+  </div>
+  <br/>
+  <div class="form-row">
+    <label for="node-config-input-url"><i class="icon-tasks"></i> Connection URL</label>
+    <input type="text" id="node-config-input-url">
+  </div>
+	<div class="form-row">
+    <label for="node-config-input-orgId"><i class="icon-tasks"></i> Organization ID</label>
+    <input type="text" id="node-config-input-orgId">
+  </div>
+	<div class="form-row">
+    <label for="node-config-input-appId"><i class="icon-tasks"></i> Application ID</label>
+    <input type="text" id="node-config-input-appId">
+  </div>
+</script>
+
+<script type='text/x-red' data-hele-name='iot-client'>
+	<p><b>Connection URL</b></p>
+	<p><b>Organization ID</b> The organization ID</p>
+	<p><b>Application ID</b> The application ID</p>
+</script>
+
+<script type="text/x-red" data-template-name="iot-mgmt">
+  <div class="form-row">
+    <label for="node-input-client"><i class="fa fa-globe"></i> Client<span data-i18n="mqtt.label.broker"></span></label>
+    <input type="text" id="node-input-client">
+  </div>
+  <div class="form-row" id="node-form-row-type">
+    <label for="node-input-type"><i class="fa fa-plug"></i> Command</label>
+    <span><select type="text" list="exampleList" id="node-input-type">
+      <option value=""></option>
+    </select></span>
+  </div>
+  <div class="form-row">
+    <ul style="background: #fff; margin-bottom: 20px;" id="node-input-command-tabs"></ul>
+  </div>
+  <div id="node-input-command-tabs-content" style="min-height: 170px;">
+  </dev>
+</script>
+
+<script type="text/x-red" data-help-name="iot-mgmt">
+  <p><b>IoT Client</b></p>
+  <p><b>Command</b></p>
+</script>
+
+<script type="text/javascript">
+  (function () {
+    // RED.nodes.registerType('iot-dev-in', {
+    //   category: 'input',
+    //   color: "rgb(115, 185, 221)",
+    //   defaults: {
+    //     name: { value: "IoT device In" },
+    //     orgId: { required: true },
+    //     deviceType: { required: true },
+    //     deviceId: { value: "" },
+    //     authToken: { value: "", required: true },
+    //     command: { value: "", required: true },
+    //     format: { value: "json", required: true }
+    //   },
+    //   inputs: 0,
+    //   outputs: 1,
+    //   icon: "iotcloud-icon.png",
+    //   label: function () {
+    //     return this.name || this.deviceId || "IoT Device";
+    //   },
+    //   labelStyle: function () {
+    //     return this.name ? "node_label_italic" : "";
+    //   }
+    // });
+
+    // RED.nodes.registerType('iot-dev-out', {
+    //   category: 'mgmt',
+    //   color: "rgb(115, 185, 221)",
+    //   defaults: {
+    //     name: { value: "IoT device Out" },
+    //     connectmode: {},
+    //     orgId: { value: "Quickstart", required: true },
+    //     deviceType: { value: "iotsample-nodered", required: true },
+    //     deviceId: { value: "" },
+    //     authToken: { value: "" }
+
+    //   },
+    //   inputs: 1,
+    //   outputs: 0,
+    //   icon: "iotcloud-icon.png",
+    //   align: "right",
+    //   label: function () {
+    //     return this.name || this.deviceId || "IoT Device";
+    //   },
+    //   labelStyle: function () {
+    //     return this.name ? "node_label_italic" : "";
+    //   }
+    // });
+
+
+    RED.nodes.registerType('iot-client', {
+      category: 'config',
+      defaults: {
+        name: { value: "IoT Client" },
+        broker: { value: '', required: true },
+        port: { value: 18569, required: true, validate: RED.validators.number() },
+        orgId: { value: "mn-cse", required: true },
+        appId: { value: 'ae-eafc7082-72da-45e4-b073-ce34afe96d65', required: true },
+        url: { value: 'mqtt://thgprlao:HYDMWTisKnbC@m13.cloudmqtt.com:18569/mn-cse/ae-eafc7082-72da-45e4-b073-ce34afe96d65', required: true }
+      },
+      credentials: {
+        username: {type: 'text'},
+        password: {type: 'text'}
+      },
+      label: function () {
+        return this.name || this.url;
+      },
+      labelStyle: function() {
+        return this.name ? 'node_label_italic' : '';
+      }
+    });
+
+    RED.nodes.registerType('iot-mgmt', {
+      category: 'mgmt',
+      color: "rgb(115, 185, 221)",
+      defaults: {
+        name: { value: "IoT Management" },
+        client: {type: 'iot-client', required: true},
+        type: {type: 'text'}
+        // orgId: { value: "mn-cse", required: true },
+        // appId: { value: 'ae-eafc7082-72da-45e4-b073-ce34afe96d65', required: true },
+        // url: { value: 'mqtt://thgprlao:HYDMWTisKnbC@m13.cloudmqtt.com:18569/mn-cse/ae-eafc7082-72da-45e4-b073-ce34afe96d65', required: true }
+      },
+      inputs: 1,
+      outputs: 0,
+      icon: "iotcloud-icon.png",
+      align: "right",
+      label: function () {
+        return this.name || "IoT Management";
+      },
+      labelStyle: function () {
+        return this.name ? "node_label_italic" : "";
+      },
+      oneditprepare: function () {
+        let selectedType = this.type;
+        let query = {
+          id: this.id,
+          method: 'getAllDeviceTypes'
+        };
+        $.getJSON('iot/mgmt?id=' + this.id, function (data) {
+          let typeSelect = $('#node-input-type');
+          typeSelect.html('<option value=""></option>');
+          if (data && Array.isArray(data)) {
+            data.forEach(item => {
+              typeSelect.append($('<option>', {
+                value: item.signiture,
+                text: item.name
+              }));
+            });
+          }
+          if (selectedType) {
+            typeSelect.val(selectedType);
+          }
+
+          typeSelect.change(function (event) {
+            let id = event.target.find('option:selected').text();
+            // $('#node-input-command-' + id).select();
+            $('#node-input-command-tabs').change({id: 'node-input-command-' + id});
+          });
+
+          let tabs = RED.tabs.create({
+            id: 'node-input-command-tabs',
+            onchange: function (tab) {
+              $('#node-input-command-tabs-content').children().hide();
+              $('#' + tab.id).show();
+            }
+          });
+
+          data.forEach(item => tabs.addTab({
+            id: 'node-input-command-' + item.name,
+            label: item.name,
+            style: 'display:none'
+          }));
+        });
+      }
+    });
+
+  } ());
+</script>

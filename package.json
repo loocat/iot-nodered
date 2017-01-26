@@ -1,0 +1,19 @@
+{
+  "readmeFilename": "README.md",
+  "name": "node-red-contrib-iot-nodejs",
+  "description": "onem2m client library for node-red",
+  "version": "0.0.1",
+  "keywords": [
+    "node-red"
+  ],
+  "dependencies": {
+    "getmac": "^1.2.1",
+    "iot-nodejs": "github:loocat/iot-nodejs"
+  },
+  "license": "MIT",
+  "node-red": {
+    "nodes": {
+      "mgmt": "nodes/mgmt.js"
+    }
+  }
+}
