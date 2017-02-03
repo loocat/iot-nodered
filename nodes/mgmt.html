@@ -143,10 +143,10 @@ auth-token=yourAuthToken
     </select></span>
   </div>
   <div class="form-row">
-    <ul style="background: #fff; margin-bottom: 20px;" id="node-input-command-tabs"></ul>
+    <ul style="background: #fff; margin-bottom: 20px;" id="command-tabs"></ul>
+    <div id="command-content" style="min-height: 170px;"></div>
+    <div id="command-accordion"></div>
   </div>
-  <div id="node-input-command-tabs-content" style="min-height: 170px;">
-  </dev>
 </script>
 
 <script type="text/x-red" data-help-name="iot-mgmt">
@@ -232,7 +232,7 @@ auth-token=yourAuthToken
       defaults: {
         name: { value: "IoT Management" },
         client: {type: 'iot-client', required: true},
-        type: {type: 'text'}
+        type: {value: ''}
         // orgId: { value: "mn-cse", required: true },
         // appId: { value: 'ae-eafc7082-72da-45e4-b073-ce34afe96d65', required: true },
         // url: { value: 'mqtt://thgprlao:HYDMWTisKnbC@m13.cloudmqtt.com:18569/mn-cse/ae-eafc7082-72da-45e4-b073-ce34afe96d65', required: true }
@@ -269,24 +269,70 @@ auth-token=yourAuthToken
           }
 
           typeSelect.change(function (event) {
-            let id = event.target.find('option:selected').text();
-            // $('#node-input-command-' + id).select();
-            $('#node-input-command-tabs').change({id: 'node-input-command-' + id});
-          });
-
-          let tabs = RED.tabs.create({
-            id: 'node-input-command-tabs',
-            onchange: function (tab) {
-              $('#node-input-command-tabs-content').children().hide();
-              $('#' + tab.id).show();
+            let option = $('#node-input-type').find('option:selected');
+            let id = option.text();
+            if (option && id) {
+              $('div#command-accordion').accordion('option', 'active', option.index()-1);
+              $('ul#command-tabs').find('a[href=\'#command-' + id + '\']').click();
+              $('div#command-content').parent().show();
+            }
+            else {
+              $('div#command-content').parent().hide();
             }
           });
 
-          data.forEach(item => tabs.addTab({
-            id: 'node-input-command-' + item.name,
-            label: item.name,
-            style: 'display:none'
-          }));
+          let toggleTab = function (tab) {
+            $('#' + tab.id).show().siblings().hide();
+            $('ul#command-tabs').find('.active').show().siblings().hide();
+          };
+
+          let tabs = RED.tabs.create({
+            id: 'command-tabs',
+            onchange: toggleTab,
+          });
+
+          let content = $('div#command-content');
+          let accordion = $('div#command-accordion');
+
+          let signatureRow = (e) => {
+            let tmp = $(document.createElement('p.form-row'));
+            tmp.append($(document.createElement('label')).text(e.name));
+            tmp.append($(document.createElement('input')).attr('type', e.type));
+            console.log(tmp.html());
+            return tmp;
+          };
+
+          data.forEach(item => {
+            tabs.addTab({
+              id: 'command-' + item.name,
+              label: item.name,
+            });
+
+            let sig = item.signature;
+            if (Array.isArray(sig)) {
+              sig = sig.length > 0 ? sig.map(signatureRow).map(e => e.html()).join('') : '';
+            }
+
+            let div = $('<div/>');
+            div
+            .attr('id', 'command-' + item.name)
+            .text(sig)
+            .appendTo(content);
+
+            let span = $('<span/>',{style:"float: right;margin-right: 10px;"});
+            let btn = $('<button/>', {href:'#', class:'editor-button edittor-button-small'}).appendTo(span);
+            $('<i/>', {class:'fa fa-plus'}).appendTo(btn);
+
+            accordion
+            .append($('<div/>').text(item.name).append(span))
+            .append($('<div/>').html(sig));
+          });
+
+          accordion.accordion({
+            heightStyle: 'content'
+          });
+          content.parent().hide();
+          $('ul#command-tabs').find('.active').removeClass('active');
         });
       }
     });

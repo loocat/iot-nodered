@@ -306,7 +306,7 @@ require('getmac').getMac(function (err, mac) {
 			let tmp = fre.exec(client[key].toString());
 			return {
 				name: key,
-				signiture: tmp[0]
+				signature: tmp[2].split(',').map(e => e.trim()).filter(e => e).map(e => {return {name: e.trim(), type: 'text'};})
 			}});
 			resp.status(200).send(methods);
 		}
