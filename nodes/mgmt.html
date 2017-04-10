@@ -258,7 +258,7 @@ auth-token=yourAuthToken
           typeSelect.html('<option value=""></option>');
           if (data && Array.isArray(data)) {
             data.forEach(item => {
-              typeSelect.append($('<option>', {
+              typeSelect.append($('<option/>', {
                 value: item.signiture,
                 text: item.name
               }));
@@ -295,9 +295,9 @@ auth-token=yourAuthToken
           let accordion = $('div#command-accordion');
 
           let signatureRow = (e) => {
-            let tmp = $(document.createElement('p.form-row'));
-            tmp.append($(document.createElement('label')).text(e.name));
-            tmp.append($(document.createElement('input')).attr('type', e.type));
+            let tmp = $('<p/>', {class: 'form-row'})
+            .append($('<label/>', {text: e.name}))
+            .append($('<input/>', {type: e.type}));
             console.log(tmp.html());
             return tmp;
           };
@@ -319,18 +319,17 @@ auth-token=yourAuthToken
             .text(sig)
             .appendTo(content);
 
-            let span = $('<span/>',{style:"float: right;margin-right: 10px;"});
-            let btn = $('<button/>', {href:'#', class:'editor-button edittor-button-small'}).appendTo(span);
+            let span = $('<span/>');
+            // let span = $('<span/>',{style:"float: right; margin-right: 10px;"});
+            let btn = $('<button/>', {href:'#', class:'editor-button edittor-button-small ui-corner-all'}).appendTo(span);
             $('<i/>', {class:'fa fa-plus'}).appendTo(btn);
 
             accordion
-            .append($('<div/>').text(item.name).append(span))
-            .append($('<div/>').html(sig));
+            .append($('<div/>').text(item.name))
+            .append($('<div/>').html(sig).append($('<p/>')).append(span));
           });
 
-          accordion.accordion({
-            heightStyle: 'content'
-          });
+          accordion.accordion({heightStyle: 'content'});
           content.parent().hide();
           $('ul#command-tabs').find('.active').removeClass('active');
         });

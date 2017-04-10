@@ -300,7 +300,7 @@ require('getmac').getMac(function (err, mac) {
 			let fre = /^([^(]+)\(([^)]*)\)/;
 			let exclude = ['constructor', 'connect', 'callApi', 'publishHTTPS'];
 			let methods = Reflect.ownKeys(Reflect.getPrototypeOf(client)).filter(
-				key => exclude.indexOf(key) < 0 && client[key] && client[key] instanceof Function
+				key => exclude.indexOf(key) < 0 && client[key] instanceof Function
 			).sort();
 			methods = methods.map(key => {
 			let tmp = fre.exec(client[key].toString());
